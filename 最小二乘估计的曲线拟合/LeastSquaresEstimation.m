@@ -14,7 +14,7 @@ W=1/v;              %权值矩阵，取方差倒数
 
 xlabel('Press Any Key To Continue!')
 pause
-for i=1:1000   
+for i=1:1000 
     h=[t(i)*t(i) t(i) 1]; %测量矩阵(变量值）at^2+bt+c=0; 三角函数如何表示？
     M=inv(inv(M)+h'*h);
     ea=ea+M*h'*W*(s3(i)-h*ea);%新估计值=旧估计值+增益*新息
@@ -37,7 +37,7 @@ for i=1:1000
     lastP3=plot(estiamte(2,:)); %绘制b系数的变化过程
     subplot(4,1,4)
     lastP4=plot(estiamte(3,:)); %绘制c系数的变化过程
-    pause(0.01);
+    pause(0.001);
     if(i<1000)
         delete(lastP1)
         delete(lastPx)

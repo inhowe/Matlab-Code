@@ -1,0 +1,16 @@
+clc,clear
+close all
+n = 0:0.01:2;
+for i=1:4
+    switch i
+    case 1, N=2;
+        case 2,N=5;
+            case 3,N=10;
+                case 4,N=20;
+    end
+    [z,p,k] = buttap(N);
+    [b,a] = zp2tf(z,p,k);
+    [H,w] = freqs(b,a,n);
+    
+
+
