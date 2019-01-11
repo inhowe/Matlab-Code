@@ -1,4 +1,4 @@
-% % clear;
+% % clear; 
 % yk1=0;yk2=0;yk3=0;
 % yk=0;yr1=0;yr2=0;
 % for t=1:L
