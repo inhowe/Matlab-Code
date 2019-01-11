@@ -1,13 +1,19 @@
 %不需预选di的n阶SISO离散系统MRAS（用于参数估计）
-%能被辨识的系统
+%被辨识系统格式：'_'表示下标
+%              y(k)=Σam_i*y(k-i)+Σbm_i*u(k-i)
+%能被辨识的系统应是正实的
+%不严格来说，差分方程化为离散传函形式的分母极点模小于1
+%严格数学推导见李言俊的自适应控制理论与应用
+
 clear all; 
-close all;
+% close all;
+clf
 
 % am=conv([1 0.8],[1 0.4])'
 % bm=[3 2]'; %参考模型参数（参考模型中含有yr(k)，注意nb的使用！）
 % am=[1 0.5 -0.6]';
 % bm=[3 2]'; %参考模型参数（参考模型中含有yr(k)，注意nb的使用！）
-am=conv([1 -0.2],[1 0.4])';
+am=conv([1 -0.2],[1 0.4])';%这种形式更容易确保用于测试的系统是正实的。
 am=-am(2:3)
 bm=[3]'; %参考模型参数（参考模型中含有yr(k)，注意nb的使用！）
 thetam=[am;bm]; %参考模型参数向量
@@ -57,10 +63,10 @@ end
 subplot(2,1,1);
 plot(time,thetape(1:na,:));
 xlabel('k'); ylabel('可调系统参数ap');
-legend('a_p_1','a_p_2','a_p_3'); 
+% legend('a_p_1','a_p_2','a_p_3'); 
 % axis([0 L -1 1.5]);
 subplot(2,1,2);
 plot(time,thetape(na+1:na+nb,:));
 xlabel('k'); ylabel('可调系统参数bp');
-legend('b_p_0','b_p_1'); 
+% legend('b_p_0','b_p_1'); 
 % axis([0 L 0 4]);

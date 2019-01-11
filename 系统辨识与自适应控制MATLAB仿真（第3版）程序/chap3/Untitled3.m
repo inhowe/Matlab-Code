@@ -1,13 +1,29 @@
-cla
-G=tf([3],[1 2 3]);
-Gz=c2d(G,0.1,'i');
-Gz=tf([3 2 0 0],[1 -1 -0.1 0.8],0.1);
+clf;
+% clear all;
+EndTime=1;%仿真截止时间
+sampleTime=0.01;%采样间隔
+t=0:sampleTime:EndTime;
+L=EndTime/sampleTime; %仿真长度
+
+G=tf([0.98407],[13.407 1]);%测量系统
+Gz=c2d(G,sampleTime,'i')
+yk=0;
+yk1=0;
+yk2=0;
+yk3=0;
+uk=ones(100000,1);
+uk1=0;
+uk2=0;
+for k=1:L
+%     yk(k)=1*yk1-0.7*yk2-0.5*yk3+0*uk(k)+3*uk(k)+2*uk1;
+    yk(k)=[thetape_1(1) 0 0]*[yk1 yk2 yk3]'+[thetape_1(2) thetape_1(3) 0]*[uk(k) uk1 uk2]';
+    yk3=yk2;
+    yk2=yk1;
+    yk1=yk(k);
+    uk2=uk1;
+    uk1=uk(k);
+end
+plot(yk)
+hold on;
+% step(tf([3 2 0 0],[1 -1 0.7 0.5],1),1:1:50)
 % step(Gz)
-% step(feedback(Gz,1))
-am=[1;-conv([1 -0.8],[1 0.4])']'
-bm=[3 2 0 0]; %参考模型参数（参考模型中含有yr(k)，注意nb的使用！）
-Gz=tf(bm,am,1);
-[A B C D]=tf2ss(am,bm)
-syms z
-H=D+C*inv(z*eye(3)-A)*B
-eig(H)

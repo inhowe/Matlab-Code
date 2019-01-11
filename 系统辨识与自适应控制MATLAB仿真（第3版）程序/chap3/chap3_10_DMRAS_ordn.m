@@ -8,6 +8,7 @@
 clear all; close all;
 
 am=[1 -0.7 0.5]'; bm=[3 2]'; %参考模型参数（参考模型中含有yr(k)，注意nb的使用！）
+%am=conv([1 0.5],conv([1 0.8],[1 -0.3]))';bm=[3 2]';%这样解释更清除怎样的系统是可辨识的
 thetam=[am;bm]; %参考模型参数向量
 na=length(am); nb=length(bm); %可调参数个数
 
